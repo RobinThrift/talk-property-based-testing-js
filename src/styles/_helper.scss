@@ -1,0 +1,29 @@
+// src/styles/components/_helper.scss 
+
+.reveal div.half {
+    float: left;
+    width: 48%;
+    margin: 0 1%;
+
+    pre {
+        width: auto;
+        display: inline-block;
+    }
+
+    p+pre {
+        margin-top: -1em;
+    }
+}
+
+.reveal {
+    .image-fragment {
+        display: none;
+        transition: none;
+        margin: 15px auto;
+    }
+
+    .image-fragment:last-child {
+        display: block;
+        visibility: none;
+    }
+}

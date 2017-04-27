@@ -1,0 +1,15 @@
+<section
+    class="slide {{#each classes}} {{this}} {{/each}}"
+    {{#if background.colour}} data-background-color="{{background.colour}}" {{/if}}
+    {{#if background.transition}} data-background-transition="{{background.transition}}" {{/if}}
+    {{#if background.img}} data-background-image="{{background.img}}" {{/if}}
+    {{#if background.video}} data-background-video="{{background.video}}" {{/if}}
+    {{#if background.loop}} data-background-video-loop {{/if}}
+    {{#if background.size}} data-background-size="{{background.size}}" {{/if}}
+    {{#if background.position}} data-background-position="{{background.position}}" {{/if}}
+    {{#if transition}} data-transition="{{transition}}" {{/if}}
+    {{#if state}} data-state="{{state}}" {{/if}}
+    {{#if notes}} data-notes="{{notes}}" {{/if}}
+>
+    {{{ contents }}}
+</section> 

@@ -1,0 +1,24 @@
+@import 'reveal/theme/_mixins';
+@import 'reveal/theme/_settings';
+
+@import '_vars';
+
+$backgroundColor: $body-bg;
+
+$mainColor: $copy-colour;
+$headingColor: $heading-colour;
+
+$headingTextShadow: none;
+$heading1TextShadow: none;
+
+$headingFont: $heading-font;
+$headingFontWeight: normal;
+
+$linkColor: $link-colour;
+$linkColorHover: $main-light;
+
+$selectionBackgroundColor: $main-light;
+$selectionColor: $body-bg;
+
+@import 'reveal/theme/_theme';
+

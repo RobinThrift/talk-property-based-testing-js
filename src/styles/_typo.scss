@@ -1,0 +1,188 @@
+
+::-moz-selection {
+    background: $main;
+    color: $main-contrast;
+    text-shadow: none;
+}
+
+::selection {
+    background: $main;
+    color: $main-contrast;
+    text-shadow: none;
+}
+
+
+body {
+    font-family: $copy-font;
+}
+
+.reveal {
+    font-family: $copy-font;
+}
+
+.reveal h1 {
+    word-wrap: normal; 
+    color: $heading-colour;
+    text-transform: none;
+}
+
+.reveal h2 {
+    text-transform: none;
+}
+
+.reveal h3 {
+    line-height: 1.1em;
+    text-transform: none;
+}
+
+.reveal h5 {
+    line-height: 1.1em;
+    text-transform: none;
+}
+
+.reveal h6 {
+    text-transform: none;
+}
+
+
+.reveal section  img {
+    border: 0;
+    background: none;
+}
+
+.reveal code {
+    padding: 0px 3px 2px 3px;
+    font-family: $code-font;
+}
+
+.reveal span.text--white {
+    color: #f7f7f7;
+    text-shadow: 0 0 8px rgba(0,0,0,.9);
+    font-family: $heading-font;
+    position: absolute;
+}
+.reveal h1 span.text--white {
+    position: inherit;
+    left: inherit;
+    top: inherit;;
+    font-size: inherit;
+}
+
+.reveal h2 span.text--white {
+    position: inherit;
+    left: inherit;
+    top: inherit;;
+    font-size: inherit;
+    top: 300%;
+    left: -30%;
+    position: absolute;
+    display: block;
+}
+
+.reveal pre {
+    padding: 8px 16px;
+    background: #fbfbfb;
+    box-shadow: none;
+}
+
+.reveal pre code {
+    background: none;
+    padding: 0;   
+}
+
+
+.tiny-code pre {
+    font-size: 14px;
+    overflow: scroll;
+    height: 600px;
+}
+
+.reveal ul {
+    width: 100%;
+    margin-bottom: 40px;
+    width: auto;
+
+    &.no-bullets {
+        list-style: none;
+    }
+}
+
+.reveal section img {
+    box-shadow: none;
+}
+
+.reveal .slides .slide.dark-text {
+    h1, h2, h3, h4, h5, h6 {
+        color: $dark-heading-colour;
+    }
+}
+
+.reveal .slides .slide.light-text {
+    color: $heading-colour;
+}
+
+.reveal .slides .slide.light-bg-img {
+    h1, h2, h3, h4, h5, h6 {
+        text-shadow: 3px 3px 1px rgba(0,0,0,.2);
+        font-family: $accent-font;
+    }
+}
+
+// AUTHOR INFO
+.reveal .author-info {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    text-align: right;
+    font-size: 0.6em;
+    line-height: 1.2em;
+    color: #f7f7f7;
+
+    a {
+        display: block;
+        font-size: inherit;
+        color: inherit;
+        
+        &:hover {
+            color: inherit;
+            text-decoration: underline;
+        }
+    }
+
+    h5 {
+        margin: 0;
+        font-size: inherit;
+        color: inherit;
+        text-shadow: inherit;
+    }
+}
+
+
+// TEXT STYLES
+.text--accented {
+    font-family: $accent-font !important;
+}
+
+.text--emphasize {
+    color: $main !important;
+}
+
+.text--mono {
+    font-family: $code-font !important;
+}
+
+.reveal .text--small {
+    font-size: 40%;
+}
+
+.reveal blockquote {
+    box-shadow: none;
+    background: none;
+    font-weight: bold;
+    text-align: left;
+    font-family: $accent-font;
+}
+
+.reveal .slides section .fragment.highlight-red.visible {
+    color: #ca6360;
+}
