@@ -16,15 +16,10 @@ reveal:
     transition: 'linear'
     backgroundTransition: 'fade'
     showNotes: true
-    math:
-        mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js'
-        config: 'TeX-AMS_CHTML'
     dependencies:
         - src: 'scripts/plugins/notes.js'
           async: false
         - src: 'scripts/plugins/Chart.bundle.min.js'
-          async: false
-        - src: 'scripts/plugins/math.js'
           async: false
 
 -- {
@@ -46,8 +41,8 @@ reveal:
 ### Hi, I'm
 # Robin Thrift
 
-##### Computer Science Student
-##### Softare Engineer @NewStore
+##### Computer Science Student @ Leibniz Uni Hannover
+##### Software Engineer @ NewStore
 
 
 -- {
@@ -80,7 +75,8 @@ reveal:
 
 [fragmented-list]
 - This is an advanced technique
-- requires a little bit of theory (and practice)
+- requires a little bit of theory
+    - (and a little practice)
 - focus on pure functions
 [/fragmented-list]
 
@@ -115,15 +111,18 @@ reveal:
 ## QuickCheck
 
 [fragment]
-> QuickCheck is a combinator library originally written
-> in Haskell, designed to assist in software testing by
-> generating test cases for test suites.
+> QuickCheck is a <span class="fragment highlight-red">combinator</span> library originally written
+> in <span class="fragment highlight-red">Haskell</span>, designed to assist in software testing by
+> <span class="fragment highlight-red">generating</span> test cases for test suites.
 [/fragment]
 
 
 -- {
     background:
         colour: '#182147'
+        img: 'img/distance-earth-vulcan.png'
+        position: center 100%
+        size: 60%
 }
 
 [fragment]
@@ -132,11 +131,11 @@ reveal:
 
 [fragment]
 ```javascript
-expect(distance(planets\['Earth'], planets\['Vulcan'])).toBe(1,514 * 10**14)
-// 16 light years
+expect(distance(planets\['Earth'], planets\['Vulcan'])).toBe(1,514 * 10**14) // km
+// 16 light years                                                    ↳ exponent operator
 ```
 
-<small>(That we all know and love 😉)</small>
+<small>(We all do this, all the time, of course 😉)</small>
 [/fragment]
 
 
@@ -167,30 +166,49 @@ expect(distance(planets\['Earth'], planets\['Vulcan'])).toBe(1,514 * 10**14)
         colour: '#2c5d85'
 }
 
-##### `distance: Vec3 -> Vec3 -> Float`
+##### $distance:\ \mathbb{R}^3\ →\ \mathbb{R}^3\ →\ \mathbb{R}$
 
+[half]
 **Examples**
-[fragmented-list classes=no-bullets]
-- `Earth -> Vulcan = 16ly` 
-- `Earth -> Alpha Centauri = 4.37ly` 
-[/fragmented-list]
+<ul class="no-bullets">
+    <li class="fragment" data-fragment-index="2">
+        <small>`Earth -> Vulcan = 16ly`</small>
+    </li>
+    <li class="fragment" data-fragment-index="3">
+        <small>`Earth -> Alpha Centauri = 4.37ly`</small> 
+    </li>
+</ul>
+[/half]
 
+[half]
 **Properties**
 
-[half]
-[fragmented-list classes=no-bullets]
-- $a, b\ \in\ \mathbb{R}^3$
-- $distance(a, b)\ \geq\ 0$
-- $distance(a, a)\ =\ 0$
-[/fragmented-list]
+<ul class="no-bullets">
+    <li class="fragment" data-fragment-index="4">
+        $a, b\ \in\ \mathbb{R}^3$
+    </li>
+    <li class="fragment" data-fragment-index="6">
+        $distance(a, b)\ \geq\ 0$
+    </li>
+    <li class="fragment" data-fragment-index="8">
+        $distance(a, a)\ =\ 0$
+    </li>
+    <li class="fragment" data-fragment-index="10">
+        $distance(a, b)\ \gt\ 0,\ a \neq b$
+    </li>
+    <li class="fragment" data-fragment-index="12">
+        $distance(a, b)\ = \ distance(b, a)$
+    </li>
+</ul>
 [/half]
 
-[half]
-[fragmented-list classes=no-bullets]
-- $distance(a, b)\ \gt\ 0,\ a \neq b$
-- $distance(a, b)\ = \ distance(b, a)$
-[/fragmented-list]
-[/half]
+<div class="image-fragments">
+    [imgfrag index=1 src=img/distance-props/1.png /]
+    [imgfrag index=5 src=img/distance-props/2.png /]
+    [imgfrag index=7 src=img/distance-props/3.png /]
+    [imgfrag index=9 src=img/distance-props/4.png /]
+    [imgfrag index=11 src=img/distance-props/5.png /]
+</div>
 
 -- {
     background:
@@ -298,7 +316,7 @@ test('addPost', () => {
         addPost({
             id: 1,
             content: 'Property based testing',
-            draf: false
+            draft: false
         })
     )
     .toEqual({
@@ -306,7 +324,7 @@ test('addPost', () => {
         payload: {
             id: 1,
             content: 'Property based testing',
-            draf: false
+            draft: false
         }
     })
 })

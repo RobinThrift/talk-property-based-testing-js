@@ -23,7 +23,20 @@
         <script src="scripts/head.min.js"></script>
         <script src="scripts/reveal.js"></script>
         <script>
-        Reveal.initialize({{{json config.reveal}}});
+            Reveal.initialize({{{json config.reveal}}});
+            let imgfrags = document.querySelectorAll('.image-fragments')
+            Reveal.addEventListener('fragmentshown', () => {
+                imgfrags
+                    .forEach(frags => {
+                        document.querySelectorAll('.image-fragment', frags).forEach(i => {
+                            i.classList.remove('img-frag-current');
+                        });
+                        let imgs = [...document.querySelectorAll('.image-fragment.visible', frags)];
+                        if (imgs.length !== 0) {
+                            imgs[imgs.length - 1].classList.add('img-frag-current')
+                        }
+                    });
+            });
         </script>
     </body>
 </html>

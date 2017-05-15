@@ -25,15 +25,15 @@
     display: flex !important;
 }
 
-.reveal {
-    .image-fragment {
+.reveal .slides section {
+    .fragment.image-fragment {
         display: none;
         transition: none;
-        margin: 15px auto;
+        margin: 0px auto;
     }
 
-    .image-fragment:last-child {
+    .fragment.image-fragment.img-frag-current,
+    .fragment.image-fragment.current-fragment {
         display: block;
-        visibility: none;
     }
 }
