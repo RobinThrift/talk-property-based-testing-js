@@ -4,7 +4,7 @@ twitter: RobinThrift
 homepage: robinthrift.com
 shortcodes: true
 css:
-    - 'https://fonts.googleapis.com/css?family=Lekton|Rajdhani:700|Sarala:700|Source+Code+Pro|VT323'
+    - 'https://fonts.googleapis.com/css?family=Open+Sans:400,400i|Trirong:400,700'
 reveal:
     controls: false
     progress: false
@@ -220,9 +220,16 @@ expect(distance(planets\['Earth'], planets\['Vulcan'])).toBe(1,514 * 10**14)
 -- {
     background:
         colour: '#6d3124'
+    classes:
+        - flex-slide
 }
 
-## image of `add` == user interface
+[half centred]
+`add(1, 2)`
+[/half]
+[half]
+![img/ui.png](img/ui.png)
+[/half]
 
 -- {
     background:
