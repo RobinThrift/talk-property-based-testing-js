@@ -1,16 +1,17 @@
 //index.js
 'use strict';
 
-var Metalsmith  = require('metalsmith'),
-    markdown    = require('metalsmith-markdown'),
-    templates   = require('metalsmith-templates'),
-    Handlebars  = require('handlebars'),
-    sass        = require('metalsmith-sass'),
-    collections = require('metalsmith-collections'),
-    ignore      = require('metalsmith-ignore'),
-    slides      = require('./lib/slides'),
+var Metalsmith   = require('metalsmith'),
+    markdown     = require('metalsmith-markdown'),
+    templates    = require('metalsmith-templates'),
+    Handlebars   = require('handlebars'),
+    sass         = require('metalsmith-sass'),
+    collections  = require('metalsmith-collections'),
+    ignore       = require('metalsmith-ignore'),
+    slides       = require('./lib/slides'),
     autoTemplate = require('./lib/autoTemplate'),
-    shortcodes  = require('metalsmith-flexible-shortcodes');
+    math         = require('./lib/math'),
+    shortcodes   = require('metalsmith-flexible-shortcodes');
 
 Handlebars.registerHelper('json', JSON.stringify);
 
@@ -56,6 +57,9 @@ Metalsmith(__dirname)
     .use(slides.makePage('wrap.hbt'))
     .use(templates({
         engine: 'handlebars'
+    }))
+    .use(math({
+        pattern: 'index.html'
     }))
     .use(sass({
         sourceMap: true,
