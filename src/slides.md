@@ -263,24 +263,36 @@ expect(distance(planets\['Earth'], planets\['Vulcan'])).toBe(1,514 * 10**14) // 
         colour: '#011b21'
 }
 
-[fragment]
+[stack]
+[fragment index=1]
 ```javascript
-function postsReducer(state = initState, action) {
+function logsReducer(state = initState, action) {
     switch (action.type) {
-        case ADD_POST:
+        case ADD_LOG:
             return {
                 ...state,
-                posts: \[...state.posts, action.payload]
+                logs: \[...state.logs, action.payload]
             }
-        case DELETE_POST:
+        case DELETE_LOG:
             return {
                 ...state,
-                stack: state.posts.filter(p => p.id !== action.payload)
+                logs: state.logs.filter(l => l.id !== action.payload)
             }
     }
 }
 ```
 [/fragment]
+
+[fragment index=0]
+```javascript
+type Log = {
+    stardate: number,
+    content: string,
+    supplement: boolean
+}
+```
+[/fragment]
+[/stack]
 
 
 -- {
@@ -289,17 +301,11 @@ function postsReducer(state = initState, action) {
 }
 
 ```javascript
-type Post = {
-    id: number,
-    content: string,
-    draft: boolean
-}
-
 // action creator
-function addPost(post: Post) {
+function addLog(log: Log) {
     return {
-        type: ADD_POST,
-        payload: post
+        type: ADD_LOG,
+        payload: log
     }
 }
 ```
@@ -311,20 +317,20 @@ function addPost(post: Post) {
 
 ```javascript
 // example based test
-test('addPost', () => {
+test('addLog', () => {
     expect(
-        addPost({
-            id: 1,
+        addLog({
+            startdate: 48672.5,
             content: 'Property based testing',
-            draft: false
+            supplement: false
         })
     )
     .toEqual({
-        type: NAVIGATE_TO,
+        type: ADD_LOG,
         payload: {
-            id: 1,
+            startdate: 48672.5,
             content: 'Property based testing',
-            draft: false
+            supplement: false
         }
     })
 })
@@ -337,6 +343,32 @@ test('addPost', () => {
 ##### Done! <span class="fragment">Right?</span>
 [/fragment]
 
+
+-- {
+    background:
+        colour: '#011b21'
+    notes: |
+        - number = R
+        - the types are now sets
+}
+
+```javascript
+let a: boolean
+```
+
+[fragment]
+\\(
+a\ \in\ \mathit{boolean}\\\
+\mathit{boolean}\ =\ \\{\mathit{true},\ \mathit{false}\\}
+\\)
+[/fragment]
+[fragment]
+\\(
+|\mathit{boolean}|\ =\ 2\\\\
+\\)
+[/fragment]
+
+
 -- {
     background:
         colour: '#011b21'
@@ -348,10 +380,10 @@ test('addPost', () => {
 }
 
 ```javascript
-type Post = {
-    id: number,
+type Log = {
+    stardate: number,
     content: string,
-    draft: boolean
+    supplement: boolean
 }
 ```
 
@@ -371,10 +403,43 @@ type Post = {
 
 [fragment]
 \\(
-\mathbb{Post}\ =\ \mathit{number} \times \mathit{string} \times \mathit{boolean}\\\
-p\ =\ (1, "hello", true)\ \in\ \mathbb{Post}
+\mathbb{Log}\ =\ \mathit{number} \times \mathit{string} \times \mathit{boolean}\\\
+l\ =\ (48672.5,\ "Hello There",\ false)\ \in\ \mathbb{Log}
 \\)
 [/fragment]
+
+
+-- {
+    background:
+        colour: '#011b21'
+}
+
+### jsverify
+
+```javascript
+// a, b, c generators
+jsc.forall(a, b, ...c, checkFn)
+
+let prop = jsc.forall(jsc.int, jsc.int, (a, b) => {
+    return a + b === b + a
+})
+
+jsc.check(prop)
+```
+
+[fragment]
+```javascript
+jsc.record({
+    a: jsc.int,
+    b: jsc.string
+})
+// e. g. {a: 1, b: "c"}
+
+jsc.array(jsc.nat),
+// e. g. [1, 2]
+```
+[/fragment]
+
 
 -- {
     background:
@@ -385,17 +450,17 @@ p\ =\ (1, "hello", true)\ \in\ \mathbb{Post}
 }
 
 ```javascript
-test('addPost', () => {
+test('addLog', () => {
     let prop = jsc.forall(jsc.record({
-        id: jsc.nat, // natural numbers
+        stardate: jsc.number, // real number
         content: jsc.nestring, // non-empty string
-        draft: jsc.bool // boolean
-    }), (post) => {
-        let action = addPost(post)
-        expect(action.type).toBe(ADD_POST)
-        expect(action.payload.content).toBe(post.content)
-        expect(action.payload.id).toBe(post.id)
-        expect(action.payload.draft).toBe(post.draft)
+        supplement: jsc.bool // boolean
+    }), (log) => {
+        let action = addLog(log)
+        expect(action.type).toBe(ADD_LOG)
+        expect(action.payload.id).toBe(log.stardate)
+        expect(action.payload.content).toBe(log.content)
+        expect(action.payload.supplement).toBe(log.supplement)
     })
 
     jsc.assert(prop)
@@ -408,17 +473,17 @@ test('addPost', () => {
 }
 
 ```javascript
-function postsReducer(state = initState, action) {
+function logsReducer(state = initState, action) {
     switch (action.type) {
-        case ADD_POST:
+        case ADD_LOG:
             return {
                 ...state,
-                posts: \[...state.posts, action.payload]
+                logs: \[...state.logs, action.payload]
             }
-        case DELETE_POST:
+        case DELETE_LOG:
             return {
                 ...state,
-                stack: state.posts.filter(p => p.id !== action.payload)
+                logs: state.logs.filter(p => p.id !== action.payload)
             }
     }
 }
@@ -428,34 +493,35 @@ function postsReducer(state = initState, action) {
     background:
         colour: '#011b21'
     notes: |
-        - postsReducer simplified to ADD_POST
+        - logsReducer simplified to ADD_LOG
         - this could in theory be proven
         - I can't
 }
 
 ```javascript
-test('postsReducer', () => {
+test('logsReducer', () => {
     let prop = jsc.forall(jsc.record({
         id: jsc.nat, // natural numbers
         content: jsc.nestring, // non-empty string
         draf: jsc.bool // boolean
     }), (payload) => {
         let prevState = {
-            posts: \[]
+            logs: \[] // could also be generated
         }
-        let nextState = postsReducer(prevState, {type: ADD_POST, payload})
-        expect(nextState.posts.length).toBe(prevState.posts.length + 1)
-        expect(nextState.posts.find(p => deepEquals(p, payload))).toNotBeNull()
+        let nextState = logsReducer(prevState, {type: ADD_LOG, payload})
+        expect(nextState.logs.length).toBe(prevState.logs.length + 1)
+        expect(nextState.logs.find(l => deepEquals(l, payload))).toNotBeNull()
     })
 })
 ```
 
 [fragment]
 \\(
-p\ \in\ \mathbb{Post},\ P\ =\ \mathbb{Post}^*\\\
-P'\ =\ postsReducer(P,\ p)\\\
-|P|+1\ =\ |P'|\\\
-p \notin P,\ p \in P'
+l\ \in\ \mathbb{Log},\ \mathbb{L}\ =\ \mathbb{Log}^*\ \setminus\ \\{l\\}\\\
+\mathit{logsReducer}\ →\ \mathbb{Log}\ →\ (l\ \in\ \mathbb{Log})\ →\ \mathbb{Log}\\\
+\mathbb{L}'\ =\ \mathit{logsReducer}(\mathbb{L},\ l)\\\
+|\mathbb{L}|+1\ =\ |\mathbb{L}'|\\\
+l \notin \mathbb{L},\ l \in \mathbb{L}'
 \\)
 [/fragment]
 
@@ -468,6 +534,7 @@ p \notin P,\ p \in P'
         - filtered length cannot excede orignal length
 }
 
+[stack with-vertical]
 ```javascript
 test('myFilter', () => {
     jsc.forall(
@@ -490,6 +557,15 @@ test('myFilter', () => {
 })
 ```
 
+[fragment]
+```javascript
+expect(
+    myFilter(a).length <= a.length
+).toBe(true)
+```
+[/fragment]
+[/stack]
+
 -- {
     background:
         colour: '#2c5d85'
@@ -500,11 +576,11 @@ test('myFilter', () => {
 [fragmented-list]
 - focus on pure functions
 - try to break down your functions
-- "What does my function actually do?"
 - in the end all our programs are data transformations
+- "What does my function actually do?"
 - think in terms of the properties of the input and output
-    - not on implementation details
-- it will catch more errors/edge cases
+    - not implementation details
+- it will catch more edge cases
 - it will take practice
 [/fragmented-list]
 
@@ -520,6 +596,7 @@ test('myFilter', () => {
 
 [fragmented-list]
 - [github.com/jsverify](https://github.com/jsverify/jsverify)
+- [github.com/leebyron/testcheck-js](https://github.com/leebyron/testcheck-js)
 - try and augment your example based tests
 [/fragmented-list]
 

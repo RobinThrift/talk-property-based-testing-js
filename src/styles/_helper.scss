@@ -21,6 +21,17 @@
     }
 }
 
+.reveal div.horizontal-stack {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+
+    &.with-vertical {
+        align-items: center;
+    }
+}
+
 .reveal .slide.flex-slide {
     display: flex !important;
 }
