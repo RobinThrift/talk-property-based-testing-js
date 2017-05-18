@@ -276,7 +276,7 @@ function logsReducer(state = initState, action) {
         case DELETE_LOG:
             return {
                 ...state,
-                logs: state.logs.filter(l => l.id !== action.payload)
+                logs: state.logs.filter(l => !deepEquals(l, action.payload))
             }
     }
 }
@@ -404,6 +404,7 @@ type Log = {
 [fragment]
 \\(
 \mathbb{Log}\ =\ \mathit{number} \times \mathit{string} \times \mathit{boolean}\\\
+|\mathbb{Log}|\ =\ \infty\\\
 l\ =\ (48672.5,\ "Hello There",\ false)\ \in\ \mathbb{Log}
 \\)
 [/fragment]
@@ -420,23 +421,23 @@ l\ =\ (48672.5,\ "Hello There",\ false)\ \in\ \mathbb{Log}
 // a, b, c generators
 jsc.forall(a, b, ...c, checkFn)
 
-let prop = jsc.forall(jsc.int, jsc.int, (a, b) => {
+let prop = jsc.forall(jsc.nat, jsc.nat, (a, b) => {
     return a + b === b + a
 })
 
-jsc.check(prop)
+jsc.assert(prop)
 ```
 
 [fragment]
 ```javascript
 jsc.record({
-    a: jsc.int,
+    a: jsc.nat,
     b: jsc.string
 })
 // e. g. {a: 1, b: "c"}
 
-jsc.array(jsc.nat),
-// e. g. [1, 2]
+jsc.array(jsc.nat)
+// e. g. \[1, 2]
 ```
 [/fragment]
 
@@ -458,7 +459,7 @@ test('addLog', () => {
     }), (log) => {
         let action = addLog(log)
         expect(action.type).toBe(ADD_LOG)
-        expect(action.payload.id).toBe(log.stardate)
+        expect(action.payload.stardate).toBe(log.stardate)
         expect(action.payload.content).toBe(log.content)
         expect(action.payload.supplement).toBe(log.supplement)
     })
@@ -483,7 +484,7 @@ function logsReducer(state = initState, action) {
         case DELETE_LOG:
             return {
                 ...state,
-                logs: state.logs.filter(p => p.id !== action.payload)
+                logs: state.logs.filter(l => !deepEquals(l, action.payload))
             }
     }
 }
@@ -501,9 +502,9 @@ function logsReducer(state = initState, action) {
 ```javascript
 test('logsReducer', () => {
     let prop = jsc.forall(jsc.record({
-        id: jsc.nat, // natural numbers
-        content: jsc.nestring, // non-empty string
-        draf: jsc.bool // boolean
+        stardate: jsc.number,
+        content: jsc.nestring,
+        supplement: jsc.bool
     }), (payload) => {
         let prevState = {
             logs: \[] // could also be generated
@@ -517,8 +518,8 @@ test('logsReducer', () => {
 
 [fragment]
 \\(
-l\ \in\ \mathbb{Log},\ \mathbb{L}\ =\ \mathbb{Log}^*\ \setminus\ \\{l\\}\\\
-\mathit{logsReducer}\ →\ \mathbb{Log}\ →\ (l\ \in\ \mathbb{Log})\ →\ \mathbb{Log}\\\
+l\ \in\ \mathbb{Log},\ \mathbb{L}\ =\ \mathbb{Log}^\*\ \setminus\ \\{l\\}\\\
+\mathit{logsReducer}\ →\ \mathbb{Log}^\*\ →\ (l\ \in\ \mathbb{Log})\ →\ \mathbb{Log}^\*\\\
 \mathbb{L}'\ =\ \mathit{logsReducer}(\mathbb{L},\ l)\\\
 |\mathbb{L}|+1\ =\ |\mathbb{L}'|\\\
 l \notin \mathbb{L},\ l \in \mathbb{L}'
