@@ -44,28 +44,6 @@ reveal:
 ##### Computer Science Student @ Leibniz Uni Hannover
 ##### Software Engineer @ NewStore
 
-
--- {
-    background:
-        colour: '#000'
-        video: 'https://media.giphy.com/media/xXIpKByEW9BBu/giphy.mp4'
-        loop: true
-}
-
--- {
-    background:
-        colour: '#000'
-        video: 'https://media.giphy.com/media/YROHNq4VhcPDO/giphy.mp4'
-        loop: true
-}
-
--- {
-    background:
-        colour: '#000'
-        video: 'https://media.giphy.com/media/9laB7nZufqmas/giphy.mp4'
-        loop: true
-}
-
 -- {
     background:
         colour: '#3e1915'
@@ -74,7 +52,7 @@ reveal:
 ## Prerequisites
 
 [fragmented-list]
-- This is an advanced technique
+- might feel a little unfamiliar
 - requires a little bit of theory
     - (and a little practice)
 - focus on pure functions
@@ -209,20 +187,6 @@ expect(distance(planets\['Earth'], planets\['Vulcan'])).toBe(1,514 * 10**14) // 
     [imgfrag index=9 src=img/distance-props/4.png /]
     [imgfrag index=11 src=img/distance-props/5.png /]
 </div>
-
--- {
-    background:
-        colour: '#000'
-        video: https://media.giphy.com/media/108KUzjTMEp2gw/giphy.mp4
-        loop: true
-}
-
--- {
-    background:
-        colour: '#000'
-        video: https://media.giphy.com/media/tGQFAuLzsabkI/giphy.mp4 
-        loop: true
-}
 
 -- {
     background:
